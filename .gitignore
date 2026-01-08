@@ -1,0 +1,19 @@
+# Node
+node_modules/
+
+# Realtime databases (private)
+database/*.json
+
+# Allow template / example database
+!database/*.example.json
+
+# Config
+.env
+
+# Logs
+*.log
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
