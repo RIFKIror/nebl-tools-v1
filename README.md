@@ -16,8 +16,10 @@ git clone https://github.com/RIFKIror/nebl-tools-v1.git
 cd nebl-tools-v1
 npm install
 node main.js
+```
 
 ### 🔄 Cara Mengupdate Tools jika ada update
 ```bash
 cd nebl-tools-v1
 git pull
+```
