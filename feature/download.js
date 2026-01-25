@@ -20,7 +20,8 @@ console.log(` ${chalk.green("›")} .tiktok     ${chalk.gray("│")} Download Vi
 console.log(` ${chalk.green("›")} .ig         ${chalk.gray("│")} Download Video Instagram`);
 console.log(` ${chalk.green("›")} .fesnuk     ${chalk.gray("│")} Download Image Facebook`);
 console.log(` ${chalk.green("›")} .splay      ${chalk.gray("│")} Cari & Download lagu Spotify`);
-
+console.log(` ${chalk.green("›")} .mediafire  ${chalk.gray("│")} Download File dari MediaFire`);
+    
 console.log("");
 console.log(chalk.bold("────────────────────────────────────────"));
 console.log(
@@ -224,6 +225,51 @@ ${json.result.downloadUrl}
     console.log("❌ Gagal mengambil data Spotify");
    }
      break;
+
+    case '.mediafire':
+      if (!args[0])
+      return console.log("❌ .mediafire https://www.mediafire.com/...");
+      const link = args.join(" ");
+      try {
+        console.log("");
+        console.log("⏳ Mengambil Data Mediafire...");
+        const engpoint = "https://api.nekolabs.web.id/downloader/mediafire"
+        const r = await fetch(engpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ url: link })
+        });
+        
+      const puqi = await r.json();
+      if (!puqi || !puqi.success) {
+       return console.log("❌ Data tidak ditemukan..")
+       break;
+    }
+    
+    const f = puqi.result;
+       
+       console.log(`
+━━━━━━━━ MEDIAFIRE DOWNLOADER ━━━━━━━━
+
+📄 Nama File  : ${f.filename || "-"}
+📦 Size       : ${f.filesize || "-"}
+📁 Tipe       : ${f.mimetype || "-"}
+📅 Upload     : ${f.uploaded || "-"}
+
+🔗 Download:
+${f.download_url}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🕒 Time   : ${puqi.timestamp || "-"}
+⚡ Speed  : ${puqi.responseTime || "-"}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    `);
+      } catch (err) {
+        console.log("❌Gagal mengambil data Mediafire", err)
+      }
+      break;
 
       default:
         console.log("❌ Command tidak ditemukan!")
